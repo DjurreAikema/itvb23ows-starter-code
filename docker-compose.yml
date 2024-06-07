@@ -1,0 +1,43 @@
+# docker-compose.yml is a YAML file used to define multi-container Docker applications. It allows you to define the services, networks,
+# and volumes for your application in a declarative way. Docker Compose simplifies the process of managing multiple Docker containers and their configurations.
+
+
+version: '3'
+
+services:
+  mysql:
+    build: ./database/
+    container_name: ows_mysql
+    environment:
+      MYSQL_DATABASE: hive
+      MYSQL_ROOT_PASSWORD: password123
+    ports:
+      - "3306:3306"
+    volumes:
+      - ows-volume:/var/lib/mysql
+
+  php:
+    build: ./src
+    container_name: ows_php
+    ports:
+      - "8000:80"
+    depends_on:
+      - mysql
+
+  sonarqube:
+    image: sonarqube
+    container_name: ows_sonarqube
+    ports:
+      - "9000:9000"
+
+  jenkins:
+    build: .
+    image: jenkins
+    container_name: ows_jenkins
+    ports:
+      - "8080:8080"
+    depends_on:
+      - sonarqube
+
+volumes:
+  ows-volume:

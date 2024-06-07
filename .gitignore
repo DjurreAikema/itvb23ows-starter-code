@@ -1,0 +1,4 @@
+/jenkins_home/
+/src/vendor/
+/src/.env
+.idea
