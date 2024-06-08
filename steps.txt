@@ -24,3 +24,9 @@
 - created bootstrap.php to load Dotenv extension
 - adding the autoload functionality from bootstrap.php directly to database.php worked
 
+- copy paste jenkins file
+- follow this video: https://www.youtube.com/watch?v=KsTMy0920go&t=651s
+- set SonarQube credetials to: admin password123
+- added ows_sonar as a tool to jenkins
+- changed sonarqube server url (in jenkins config) to sonarqube:9000 instead of localhost:9000
+-recreated sonar credentials in jenkins config
