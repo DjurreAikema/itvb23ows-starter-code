@@ -1,0 +1,26 @@
+- Forked the repository
+- Issues en features in de tracker van mijn repository ge-paste
+- Screenshots gemaakt als bewijs voor week 1
+
+- made database folder
+- moved hive.sql to database folder
+- made src fodler
+- moved code to src folder
+- made database Dockerfile
+- made src dockerfile
+- made jenkins dockerfile in project root
+- made docker-compose
+- ran docker-compose up --build [failed]
+- failed to solve: process "/bin/sh -c composer install" did not complete successfully: exit code: 1
+- added composer.json to src
+- ran docker-compose up --build [failed]
+- ran composer install in src
+- ran docker-compose up --build [success]
+- localhost:8000 [code] can be reached but is giving errors
+- localhost:3306 [database] cant be reached
+- localhost:8080 [jenkins] works
+- localhost:9000 [SonarQube] works
+- added db connection info to .env file
+- created bootstrap.php to load Dotenv extension
+- adding the autoload functionality from bootstrap.php directly to database.php worked
+
