@@ -1,7 +1,14 @@
 pipeline {
-    agent { label '!windows' }
+    agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out'
+                checkout scm
+            }
+        }
+
         stage('SonarQube') {
             steps {
                 script { scannerHome = tool 'ows_sonar' }
@@ -16,16 +23,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building'
-                script {
-                    sh 'docker-compose up --build -d'
-                }
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Testing'
-                sh 'docker-compose run --rm php vendor/bin/phpunit /var/www/html/Tests'
+                sh 'php /var/www/html/vendor/bin/phpunit /var/www/html/tests --configuration /var/www/html/tests/phpunit.xml'
             }
         }
 
