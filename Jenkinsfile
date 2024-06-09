@@ -2,18 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('SonarQube') {
-            steps {
-                script { scannerHome = tool 'ows_sonar' }
-                withSonarQubeEnv(installationName: 'sq1') {
-                    sh "${scannerHome}/bin/sonar-scanner \
-                    -D sonar.projectKey=sq1 \
-                    -D sonar.host.url=http://sonarqube:9000/"
-                }
-            }
-        }
-
-
         stage('Test') {
             steps {
                 script {
@@ -21,13 +9,24 @@ pipeline {
                     def imageName = "itvb23ows-starter-code-php:latest"
 
                     // Build the Docker image
-                    docker.build(imageName, 'src/Dockerfile')
+                    docker.build(imageName, 'src/')
 
                     // Run the Docker container
                     docker.image(imageName).inside {
                         // Commands to run inside the container
                         sh 'vendor/bin/phpunit src/.'
                     }
+                }
+            }
+        }
+
+        stage('SonarQube') {
+            steps {
+                script { scannerHome = tool 'ows_sonar' }
+                withSonarQubeEnv(installationName: 'sq1') {
+                    sh "${scannerHome}/bin/sonar-scanner \
+                    -D sonar.projectKey=sq1 \
+                    -D sonar.host.url=http://sonarqube:9000/"
                 }
             }
         }
