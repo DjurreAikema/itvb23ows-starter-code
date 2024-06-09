@@ -2,10 +2,13 @@
 
 namespace Core;
 
-$GLOBALS['OFFSETS'] = [[0, 1], [0, -1], [1, 0], [-1, 0], [-1, 1], [1, -1]];
-
 class Util
 {
+    public function getOffsets(): array
+    {
+        return [[0, 1], [0, -1], [1, 0], [-1, 0], [-1, 1], [1, -1]];
+    }
+
     public function isNeighbour($a, $b): bool
     {
         $a = explode(',', $a);
@@ -59,7 +62,7 @@ class Util
         }
         $b = explode(',', $to);
         $common = [];
-        foreach ($GLOBALS['OFFSETS'] as $pq) {
+        foreach ($this->getOffsets() as $pq) {
             $p = $b[0] + $pq[0];
             $q = $b[1] + $pq[1];
             if ($this->isNeighbour($from, $p . "," . $q)) {
