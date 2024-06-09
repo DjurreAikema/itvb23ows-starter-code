@@ -16,14 +16,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building'
-                sh 'composer install'
+                sh 'docker-compose run --rm php composer install'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Testing'
-                sh 'vendor/bin/phpunit /var/www/html/Tests'
+                sh 'docker-compose run --rm php vendor/bin/phpunit /var/www/html/Tests'
             }
         }
 
