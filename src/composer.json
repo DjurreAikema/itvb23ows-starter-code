@@ -9,7 +9,8 @@
   "autoload": {
     "psr-4": {
       "Core\\": "./",
-      "Exceptions\\": "Exceptions/"
+      "Exceptions\\": "Exceptions/",
+      "Helpers\\": "Helpers/"
     }
   }
 }

@@ -4,9 +4,11 @@ session_start();
 
 use Core\Util;
 use Core\Database;
+use Helpers\SessionHelper;
 
 $util = new Util();
 $mysqli = new Database();
+$sessionHelper = new SessionHelper();
 
 $from = $_POST['from'];
 $to = $_POST['to'];
@@ -74,7 +76,8 @@ if (!isset($board[$from])) {
             echo $e->getMessage();
         }
         $stmt = $db->prepare('insert into moves (game_id, type, move_from, move_to, previous_id, state) values (?, "move", ?, ?, ?, ?)');
-        $stmt->bind_param('issis', $_SESSION['game_id'], $from, $to, $_SESSION['last_move'], getState());
+        $state = $sessionHelper->getState();
+        $stmt->bind_param('issis', $_SESSION['game_id'], $from, $to, $_SESSION['last_move'], $state);
         $stmt->execute();
         $_SESSION['last_move'] = $db->insert_id;
     }
