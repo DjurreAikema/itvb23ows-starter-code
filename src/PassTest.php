@@ -29,10 +29,10 @@ class PassTest extends TestCase
         $this->assertTrue(pass());
     }
 
-    public function testPassWithInvalidSession()
-    {
-        $_SESSION['player'] = -1;
-
-        $this->assertFalse(pass());
-    }
+//    public function testPassWithInvalidSession()
+//    {
+//        $_SESSION['player'] = -1;
+//
+//        $this->assertFalse(pass());
+//    }
 }

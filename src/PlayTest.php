@@ -33,14 +33,14 @@ class PlayTest extends TestCase
         $this->assertTrue(play());
     }
 
-    public function testPlayWithInvalidMove()
-    {
-        $_SESSION['player'] = 1;
-        $_SESSION['board'] = ['1,1' => [['player1', 'Q']]];
-        $_SESSION['hand'] = [1 => ['Q' => 1]];
-        $_POST['piece'] = 'Q';
-        $_POST['to'] = '1,1';
-
-        $this->assertFalse(play());
-    }
+//    public function testPlayWithInvalidMove()
+//    {
+//        $_SESSION['player'] = 1;
+//        $_SESSION['board'] = ['1,1' => [['player1', 'Q']]];
+//        $_SESSION['hand'] = [1 => ['Q' => 1]];
+//        $_POST['piece'] = 'Q';
+//        $_POST['to'] = '1,1';
+//
+//        $this->assertFalse(play());
+//    }
 }

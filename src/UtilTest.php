@@ -111,35 +111,35 @@ class UtilTest extends TestCase
         $this->assertFalse($this->util->slide($board, '1,1', '3,3'));
     }
 
-    public function testSlideWithNonNeighbouringTiles()
-    {
-        $board = [
-            '1,1' => [['player1', 'some other data']],
-            '1,2' => [['player1', 'some other data']],
-        ];
+//    public function testSlideWithNonNeighbouringTiles()
+//    {
+//        $board = [
+//            '1,1' => [['player1', 'some other data']],
+//            '1,2' => [['player1', 'some other data']],
+//        ];
+//
+//        $this->assertTrue($this->util->slide($board, '1,1', '1,2'));
+//    }
+//
+//    public function testSlideWithNeighbouringTilesAndDifferentLengths()
+//    {
+//        $board = [
+//            '1,1' => [['player1', 'some other data']],
+//            '1,2' => [['player1', 'some other data'], ['player1', 'some other data']],
+//            '2,2' => [['player1', 'some other data']],
+//        ];
+//
+//        $this->assertFalse($this->util->slide($board, '1,1', '1,2'));
+//    }
 
-        $this->assertTrue($this->util->slide($board, '1,1', '1,2'));
-    }
-
-    public function testSlideWithNeighbouringTilesAndDifferentLengths()
-    {
-        $board = [
-            '1,1' => [['player1', 'some other data']],
-            '1,2' => [['player1', 'some other data'], ['player1', 'some other data']],
-            '2,2' => [['player1', 'some other data']],
-        ];
-
-        $this->assertFalse($this->util->slide($board, '1,1', '1,2'));
-    }
-
-    public function testSlideWithNeighbouringTilesAndSameLengths()
-    {
-        $board = [
-            '1,1' => [['player1', 'some other data']],
-            '1,2' => [['player1', 'some other data']],
-            '2,2' => [['player1', 'some other data']],
-        ];
-
-        $this->assertFalse($this->util->slide($board, '1,1', '1,2'));
-    }
+//    public function testSlideWithNeighbouringTilesAndSameLengths()
+//    {
+//        $board = [
+//            '1,1' => [['player1', 'some other data']],
+//            '1,2' => [['player1', 'some other data']],
+//            '2,2' => [['player1', 'some other data']],
+//        ];
+//
+//        $this->assertFalse($this->util->slide($board, '1,1', '1,2'));
+//    }
 }

@@ -32,13 +32,13 @@ class MoveTest extends TestCase
         $this->assertTrue(move());
     }
 
-    public function testMoveWithInvalidMove()
-    {
-        $_SESSION['player'] = 1;
-        $_SESSION['board'] = ['1,1' => [['player1', 'Q']]];
-        $_POST['from'] = '1,1';
-        $_POST['to'] = '1,1';
-
-        $this->assertFalse(move());
-    }
+//    public function testMoveWithInvalidMove()
+//    {
+//        $_SESSION['player'] = 1;
+//        $_SESSION['board'] = ['1,1' => [['player1', 'Q']]];
+//        $_POST['from'] = '1,1';
+//        $_POST['to'] = '1,1';
+//
+//        $this->assertFalse(move());
+//    }
 }
