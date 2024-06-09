@@ -1,10 +1,18 @@
 <?php
 
+use Core\Database;
+
+$mysqli = new Database();
+
 session_start();
 
-$db = include_once 'Database.php';
+try {
+    $db = $mysqli->connect();
+} catch (Exception $e) {
+}
 $stmt = $db->prepare('insert into moves (game_id, type, move_from, move_to, previous_id, state) values (?, "pass", null, null, ?, ?)');
-$stmt->bind_param('iis', $_SESSION['game_id'], $_SESSION['last_move'], getState());
+$state = $mysqli->getState();
+$stmt->bind_param('iis', $_SESSION['game_id'], $_SESSION['last_move'], $state);
 $stmt->execute();
 $_SESSION['last_move'] = $db->insert_id;
 $_SESSION['player'] = 1 - $_SESSION['player'];
