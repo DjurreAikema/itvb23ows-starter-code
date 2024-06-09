@@ -28,8 +28,12 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo 'Testing'
-                sh 'php /var/www/html/vendor/bin/phpunit /var/www/html/Tests --configuration /var/www/html/Tests/phpunit.xml'
+                script {
+                    docker.image('composer:lts').inside {
+                        sh 'composer install'
+                        sh 'vendor/bin/phpunit src/.'
+                    }
+                }
             }
         }
 
