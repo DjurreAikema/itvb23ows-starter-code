@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label '!windows' }
 
     stages {
         stage('SonarQube') {
@@ -16,7 +16,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building'
-                sh 'docker-compose run --rm php composer install'
+                script {
+                    sh 'docker-compose up --build -d'
+                }
             }
         }
 
@@ -37,6 +39,7 @@ pipeline {
     post {
         always {
             echo 'This will always run'
+            sh 'docker-compose down'
         }
         success {
             echo 'This will run only if successful'
