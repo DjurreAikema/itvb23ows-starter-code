@@ -2,7 +2,11 @@
 
 session_start();
 
-include_once 'Util.php';
+use Core\Util;
+use Core\Database;
+
+$util = new Util();
+$mysqli = new Database();
 
 $from = $_POST['from'];
 $to = $_POST['to'];
@@ -20,7 +24,7 @@ elseif ($hand['Q'])
     $_SESSION['error'] = "Queen bee is not played";
 else {
     $tile = array_pop($board[$from]);
-    if (!hasNeighBour($to, $board))
+    if (!$util->hasNeighBour($to, $board))
         $_SESSION['error'] = "Move would split hive";
     else {
         $all = array_keys($board);
@@ -43,7 +47,7 @@ else {
             if ($from == $to) $_SESSION['error'] = 'Tile must move';
             elseif (isset($board[$to]) && $tile[1] != "B") $_SESSION['error'] = 'Tile not empty';
             elseif ($tile[1] == "Q" || $tile[1] == "B") {
-                if (!slide($board, $from, $to))
+                if (!$util->slide($board, $from, $to))
                     $_SESSION['error'] = 'Tile must slide';
             }
         }
@@ -55,7 +59,10 @@ else {
         if (isset($board[$to])) array_push($board[$to], $tile);
         else $board[$to] = [$tile];
         $_SESSION['player'] = 1 - $_SESSION['player'];
-        $db = include_once 'Database.php';
+        try {
+            $db = $mysqli->connect();
+        } catch (Exception $e) {
+        }
         $stmt = $db->prepare('insert into moves (game_id, type, move_from, move_to, previous_id, state) values (?, "move", ?, ?, ?, ?)');
         $stmt->bind_param('issis', $_SESSION['game_id'], $from, $to, $_SESSION['last_move'], getState());
         $stmt->execute();
