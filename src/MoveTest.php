@@ -22,7 +22,7 @@ class MoveTest extends TestCase
         $_POST['from'] = '1,1';
         $_POST['to'] = '2,2';
 
-        $this->db->method('getInstance')->willReturn($this->db);
+//        $this->db->method('getInstance')->willReturn($this->db);
         $this->db->method('getConnection')->willReturn($this->db);
         $this->db->method('prepare')->willReturn($this->db);
         $this->db->method('execute')->willReturn(true);

@@ -19,7 +19,7 @@ class UndoTest extends TestCase
     {
         $_SESSION['last_move'] = 1;
 
-        $this->db->method('getInstance')->willReturn($this->db);
+//        $this->db->method('getInstance')->willReturn($this->db);
         $this->db->method('getConnection')->willReturn($this->db);
         $this->db->method('prepare')->willReturn($this->db);
         $this->db->method('execute')->willReturn(true);
