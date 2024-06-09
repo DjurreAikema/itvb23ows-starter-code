@@ -39,3 +39,13 @@
 - run jenkins build
 - add jenkins version to Dockerfile
 - jenkins pipeline still builds
+
+- create medium severity branche
+- fix medium severity issues
+- create pull request on git
+- merge pull request and delete branche
+- run jenkins build
+
+
+
+
