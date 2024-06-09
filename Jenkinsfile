@@ -14,7 +14,7 @@ pipeline {
                     // Run the Docker container
                     docker.image(imageName).inside {
                         // Commands to run inside the container
-                        sh 'vendor/bin/phpunit src/.'
+                        sh 'chmod +x /var/www/html/vendor/bin/phpunit && /var/www/html/vendor/bin/phpunit /var/www/html/'
                     }
                 }
             }
