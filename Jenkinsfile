@@ -2,6 +2,12 @@ pipeline {
     agent { label '!windows' }
 
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
         stage('SonarQube') {
             steps {
                 script { scannerHome = tool 'ows_sonar' }
@@ -9,15 +15,6 @@ pipeline {
                     sh "${scannerHome}/bin/sonar-scanner \
                     -D sonar.projectKey=sq1 \
                     -D sonar.host.url=http://sonarqube:9000/"
-                }
-            }
-        }
-
-        stage('Build') {
-            steps {
-                echo 'Building'
-                script {
-                    sh 'docker-compose up --build -d'
                 }
             }
         }
