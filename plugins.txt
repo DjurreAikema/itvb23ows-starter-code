@@ -20,3 +20,7 @@ matrix-auth:latest
 cloudbees-folder:latest
 ssh-slaves:latest
 build-timeout:latest
+git-client:latest
+job-dsl:latest
+docker-commons:latest
+docker-workflow:latest
