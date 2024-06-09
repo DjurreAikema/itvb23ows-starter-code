@@ -1,14 +1,23 @@
 FROM jenkins/jenkins:lts-jdk17
 
-ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
-
-COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
-RUN  jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt
-
+# Install Docker
 USER root
+RUN groupadd docker --gid 1001
+RUN apt-get update
 
-RUN apt-get update && apt-get install -y docker.io
-RUN usermod -u 1000 jenkins
+# Install Docker Compose
+RUN apt-get install -y docker-compose
+
+# Install php-xml
+RUN apt-get install -y php-cli php-xml
+
+# Install mbstring for PHPunit
+RUN apt-get install -y php-mbstring
+
+# Install php-mysql
+RUN apt-get install php-mysqlnd
+
 RUN usermod -aG docker jenkins
 
+# Set user
 USER jenkins

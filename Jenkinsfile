@@ -2,6 +2,20 @@ pipeline {
     agent any
 
     stages {
+        stage('Build') {
+            steps {
+                sh 'docker-compose -f docker-compose.yml build'
+            }
+        }
+
+        stage('PHPUnit tests') {
+            steps {
+                script {
+                    sh 'php ./vendor/bin/phpunit'
+                }
+            }
+        }
+
         stage('SonarQube') {
             steps {
                 script { scannerHome = tool 'ows_sonar' }
@@ -10,32 +24,6 @@ pipeline {
                     -D sonar.projectKey=sq1 \
                     -D sonar.host.url=http://sonarqube:9000/"
                 }
-            }
-        }
-
-//         stage('Build') {
-//             steps {
-//                 echo 'Building'
-//                 script {
-//                     sh 'docker-compose up --build -d'
-//                 }
-//             }
-//         }
-
-        stage('Test') {
-            steps {
-                script {
-                    docker.image('composer:lts').inside {
-                        sh 'composer install'
-                        sh 'vendor/bin/phpunit src/.'
-                    }
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying'
             }
         }
     }
