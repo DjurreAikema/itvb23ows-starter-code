@@ -18,10 +18,10 @@ pipeline {
             steps {
                 script {
                     // Define the Docker image name
-                    def imageName = "mitvb23ows-starter-code-php:latest"
+                    def imageName = "itvb23ows-starter-code-php:latest"
 
                     // Build the Docker image
-                    docker.build(imageName, '-f src/Dockerfile')
+                    docker.build(imageName, 'src/Dockerfile')
 
                     // Run the Docker container
                     docker.image(imageName).inside {
