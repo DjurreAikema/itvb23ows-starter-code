@@ -11,7 +11,8 @@
       "Core\\": "./",
       "Exceptions\\": "Exceptions/",
       "Helpers\\": "Helpers/",
-      "Models\\": "Models/"
+      "Models\\": "Models/",
+      "Tests\\": "Tests/"
     }
   }
 }

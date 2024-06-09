@@ -14,6 +14,10 @@ class ComposerStaticInitf15ab116058454461442e701aa935391
     );
 
     public static $prefixLengthsPsr4 = array (
+        'T' => 
+        array (
+            'Tests\\' => 6,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
@@ -24,9 +28,21 @@ class ComposerStaticInitf15ab116058454461442e701aa935391
         array (
             'PhpOption\\' => 10,
         ),
+        'M' => 
+        array (
+            'Models\\' => 7,
+        ),
+        'H' => 
+        array (
+            'Helpers\\' => 8,
+        ),
         'G' => 
         array (
             'GrahamCampbell\\ResultType\\' => 26,
+        ),
+        'E' => 
+        array (
+            'Exceptions\\' => 11,
         ),
         'D' => 
         array (
@@ -34,9 +50,17 @@ class ComposerStaticInitf15ab116058454461442e701aa935391
             'Doctrine\\Instantiator\\' => 22,
             'DeepCopy\\' => 9,
         ),
+        'C' => 
+        array (
+            'Core\\' => 5,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Tests\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Tests',
+        ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
@@ -53,9 +77,21 @@ class ComposerStaticInitf15ab116058454461442e701aa935391
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
+        'Models\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Models',
+        ),
+        'Helpers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Helpers',
+        ),
         'GrahamCampbell\\ResultType\\' => 
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
+        ),
+        'Exceptions\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Exceptions',
         ),
         'Dotenv\\' => 
         array (
@@ -68,6 +104,10 @@ class ComposerStaticInitf15ab116058454461442e701aa935391
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+        'Core\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/',
         ),
     );
 

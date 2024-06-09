@@ -2,6 +2,7 @@ FROM jenkins/jenkins:jdk17
 
 # Install Docker
 USER root
+RUN apt-get update && apt-get install -y sudo
 RUN groupadd docker --gid 1001
 RUN apt-get update
 

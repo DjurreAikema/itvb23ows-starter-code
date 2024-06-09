@@ -1,1 +1,1 @@
-{"version":1,"defects":[],"times":{"HandDropdownTest::testNoOptionForZeroCountTile":0.002}}
+{"version":1,"defects":{"UtilTest::testIsNeighbour":4,"Core\\UtilTest::testIsNeighbour":3},"times":{"HandDropdownTest::testNoOptionForZeroCountTile":0.002,"UtilTest::testIsNeighbour":0.002,"Core\\UtilTest::testIsNeighbour":0.002}}
