@@ -142,11 +142,14 @@ if (!count($to)) {
         echo "Black";
     } ?>
 </div>
+
 <form method="post" action="play.php">
     <select name="piece">
         <?php
         foreach ($hand[$player] as $tile => $ct) {
-            echo "<option value=\"$tile\">$tile</option>";
+            if ($ct > 0) {
+                echo "<option value=\"$tile\">$tile</option>";
+            }
         }
         ?>
     </select>
@@ -159,6 +162,7 @@ if (!count($to)) {
     </select>
     <input type="submit" value="Play">
 </form>
+
 <form method="post" action="move.php">
     <select name="from">
         <?php
