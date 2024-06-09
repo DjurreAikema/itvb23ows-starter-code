@@ -2,7 +2,6 @@ FROM jenkins/jenkins:jdk17
 
 # Install Docker
 USER root
-RUN apt-get update && apt-get install -y sudo
 RUN groupadd docker --gid 1001
 RUN apt-get update
 
@@ -20,5 +19,8 @@ RUN apt-get install php-mysqlnd
 
 RUN usermod -aG docker jenkins
 
+# Jenkins plugins
+COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt
 # Set user
-USER jenkins
+#USER jenkins
