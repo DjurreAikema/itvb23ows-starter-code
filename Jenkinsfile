@@ -14,18 +14,18 @@ pipeline {
 //         }
 
         stage('Install dependencies') {
+            agent { docker { image 'composer:2.6' } }
             steps {
-                sh 'composer install'
-                sh 'composer require --dev phpunit/phpunit'
+                sh 'composer install --ignore-platform-reqs'
+                stash name: 'vendor', includes: 'vendor/**'
             }
         }
 
-        stage('Test1') {
+        stage('Unit Tests') {
+            agent { docker { image 'php:8.3-cli' } }
             steps {
-                script {
-                    echo 'Testing...'
-                    sh 'vendor/bin/phpunit /var/www/html/Tests'
-                }
+                unstash name: 'vendor'
+                sh 'vendor/bin/phpunit /var/www/html/Tests'
             }
         }
 
