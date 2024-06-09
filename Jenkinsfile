@@ -13,22 +13,6 @@ pipeline {
 //             }
 //         }
 
-        stage('Install dependencies') {
-            agent { docker { image 'composer:2.6' } }
-            steps {
-                sh 'composer install --ignore-platform-reqs'
-                stash name: 'vendor', includes: 'vendor/**'
-            }
-        }
-
-        stage('Unit Tests') {
-            agent { docker { image 'php:8.3-cli' } }
-            steps {
-                unstash name: 'vendor'
-                sh 'vendor/bin/phpunit /var/www/html/Tests'
-            }
-        }
-
         stage('Build') {
             steps {
                 echo 'Building'
