@@ -1,5 +1,5 @@
 pipeline {
-    agent { label '!windows' }
+    agent any
 
     stages {
         stage('SonarQube') {
@@ -16,6 +16,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building'
+                sh 'docker compose up --build -d'
             }
         }
 
