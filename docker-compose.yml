@@ -33,8 +33,6 @@ services:
   jenkins:
     build: .
     image: jenkins
-    privileged: true
-    user: root
     container_name: ows_jenkins
     ports:
       - "8080:8080"

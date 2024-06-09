@@ -2,28 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                // Haalt code op uit je Git repository
-                git url: 'https://github.com/DjurreAikema/itvb23ows-starter-code/', branch: 'main'
-            }
-        }
-
-
-        stage('Build') {
-            steps {
-                sh 'docker-compose -f docker-compose.yml build'
-            }
-        }
-
-        stage('PHPUnit tests') {
-            steps {
-                script {
-                    sh 'php ./vendor/bin/phpunit'
-                }
-            }
-        }
-
         stage('SonarQube') {
             steps {
                 script { scannerHome = tool 'ows_sonar' }
@@ -32,6 +10,23 @@ pipeline {
                     -D sonar.projectKey=sq1 \
                     -D sonar.host.url=http://sonarqube:9000/"
                 }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    docker.image('composer:lts').inside {
+                        sh 'composer install'
+                        sh 'vendor/bin/phpunit src/.'
+                    }
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying'
             }
         }
     }
