@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 use Core\Util;
 use Core\Database;
 use Helpers\SessionHelper;
