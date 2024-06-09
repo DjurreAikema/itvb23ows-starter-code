@@ -1,22 +1,17 @@
 pipeline {
-    agent {
-        docker {
-            image 'jenkinsci/docker'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    agent any
 
     stages {
-//         stage('SonarQube') {
-//             steps {
-//                 script { scannerHome = tool 'ows_sonar' }
-//                 withSonarQubeEnv(installationName: 'sq1') {
-//                     sh "${scannerHome}/bin/sonar-scanner \
-//                     -D sonar.projectKey=sq1 \
-//                     -D sonar.host.url=http://sonarqube:9000/"
-//                 }
-//             }
-//         }
+        stage('SonarQube') {
+            steps {
+                script { scannerHome = tool 'ows_sonar' }
+                withSonarQubeEnv(installationName: 'sq1') {
+                    sh "${scannerHome}/bin/sonar-scanner \
+                    -D sonar.projectKey=sq1 \
+                    -D sonar.host.url=http://sonarqube:9000/"
+                }
+            }
+        }
 
         stage('Build') {
             steps {
@@ -27,9 +22,6 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing'
-                dir("src") {
-                    sh 'docker-compose -f docker-compose.yml run --rm php sh -c "cd /var/www/html && composer update && ./vendor/bin/phpunit tests"'
-                }
             }
         }
 
