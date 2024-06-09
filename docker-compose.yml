@@ -38,6 +38,8 @@ services:
       - "8080:8080"
     depends_on:
       - sonarqube
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   ows-volume:
