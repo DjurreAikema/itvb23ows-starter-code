@@ -1,15 +1,7 @@
 pipeline {
-    agent any
+    agent { label '!windows' }
 
     stages {
-        stage('Install Dependencies') {
-            steps {
-                sh 'curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer'
-                sh 'composer install --ignore-platform-reqs'
-                stash name: 'vendor', includes: 'vendor/**'
-            }
-        }
-
         stage('SonarQube') {
             steps {
                 script { scannerHome = tool 'ows_sonar' }
@@ -17,6 +9,15 @@ pipeline {
                     sh "${scannerHome}/bin/sonar-scanner \
                     -D sonar.projectKey=sq1 \
                     -D sonar.host.url=http://sonarqube:9000/"
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building'
+                script {
+                    sh 'docker-compose up --build -d'
                 }
             }
         }
