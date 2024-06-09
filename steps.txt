@@ -34,3 +34,6 @@
 - check report in SonarQube analysis
 - create low severity branche
 - fix low severity issues
+- create pull request on git
+- merge pull request and delete branche
+- run jenkins build
