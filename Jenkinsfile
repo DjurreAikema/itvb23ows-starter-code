@@ -17,8 +17,7 @@ pipeline {
             steps {
                 script {
                     docker.image('composer:lts').inside {
-                        sh 'composer install'
-                        sh 'vendor/bin/phpunit src/.'
+                        sh 'cd src && composer install && cd .. && vendor/bin/phpunit src/.'
                     }
                 }
             }
