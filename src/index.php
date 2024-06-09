@@ -1,10 +1,12 @@
 <?php
 session_start();
 
-use Core\Util;
-use Core\Database;
+require_once __DIR__ . '/vendor/autoload.php';
 
-$mysqli = new Database();
+use Core\Util;
+use Models\Database;
+
+$db = Database::getInstance()->getConnection();
 
 if (!isset($_SESSION['board'])) {
     header('Location: restart.php');
@@ -185,11 +187,6 @@ if (!count($to)) {
     unset($_SESSION['error']); ?></strong>
 <ol>
     <?php
-    try {
-        $db = $mysqli->connect();
-    } catch (Exception $e) {
-        echo 'Caught exception: ', $e->getMessage(), "\n";
-    }
     $stmt = $db->prepare('SELECT * FROM moves WHERE game_id = ' . $_SESSION['game_id']);
     $stmt->execute();
     $result = $stmt->get_result();

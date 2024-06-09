@@ -10,7 +10,8 @@
     "psr-4": {
       "Core\\": "./",
       "Exceptions\\": "Exceptions/",
-      "Helpers\\": "Helpers/"
+      "Helpers\\": "Helpers/",
+      "Models\\": "Models/"
     }
   }
 }
