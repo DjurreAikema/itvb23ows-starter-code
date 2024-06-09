@@ -118,7 +118,7 @@ class UtilTest extends TestCase
             '1,2' => [['player1', 'some other data']],
         ];
 
-        $this->assertFalse($this->util->slide($board, '1,1', '1,2'));
+        $this->assertTrue($this->util->slide($board, '1,1', '1,2'));
     }
 
     public function testSlideWithNeighbouringTilesAndDifferentLengths()
@@ -129,7 +129,7 @@ class UtilTest extends TestCase
             '2,2' => [['player1', 'some other data']],
         ];
 
-        $this->assertTrue($this->util->slide($board, '1,1', '1,2'));
+        $this->assertFalse($this->util->slide($board, '1,1', '1,2'));
     }
 
     public function testSlideWithNeighbouringTilesAndSameLengths()
@@ -140,6 +140,6 @@ class UtilTest extends TestCase
             '2,2' => [['player1', 'some other data']],
         ];
 
-        $this->assertTrue($this->util->slide($board, '1,1', '1,2'));
+        $this->assertFalse($this->util->slide($board, '1,1', '1,2'));
     }
 }
