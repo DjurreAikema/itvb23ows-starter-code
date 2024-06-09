@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Haalt code op uit je Git repository
-                git url: 'https://github.com/DjurreAikema/itvb23ows-starter-code.git', branch: 'main'
+                git url: 'https://github.com/DjurreAikema/itvb23ows-starter-code/', branch: 'main'
             }
         }
 
