@@ -35,7 +35,7 @@ if (!isset($board[$from])) {
         $queue = [array_shift($all)];
         while ($queue) {
             $next = explode(',', array_shift($queue));
-            foreach ($GLOBALS['OFFSETS'] as $pq) {
+            foreach ($util->getOffsets() as $pq) {
                 list($p, $q) = $pq;
                 $p += $next[0];
                 $q += $next[1];

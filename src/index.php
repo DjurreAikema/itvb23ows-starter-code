@@ -6,6 +6,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 use Core\Util;
 use Models\Database;
 
+$util = new Util();
 $db = Database::getInstance()->getConnection();
 
 if (!isset($_SESSION['board'])) {
@@ -17,7 +18,7 @@ $player = $_SESSION['player'];
 $hand = $_SESSION['hand'];
 
 $to = [];
-foreach ($GLOBALS['OFFSETS'] as $pq) {
+foreach ($util->getOffsets() as $pq) {
     foreach (array_keys($board) as $pos) {
         $pq2 = explode(',', $pos);
         $to[] = ($pq[0] + $pq2[0]) . ',' . ($pq[1] + $pq2[1]);
