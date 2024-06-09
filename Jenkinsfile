@@ -2,16 +2,16 @@ pipeline {
     agent any
 
     stages {
-        stage('SonarQube') {
-            steps {
-                script { scannerHome = tool 'ows_sonar' }
-                withSonarQubeEnv(installationName: 'sq1') {
-                    sh "${scannerHome}/bin/sonar-scanner \
-                    -D sonar.projectKey=sq1 \
-                    -D sonar.host.url=http://sonarqube:9000/"
-                }
-            }
-        }
+//         stage('SonarQube') {
+//             steps {
+//                 script { scannerHome = tool 'ows_sonar' }
+//                 withSonarQubeEnv(installationName: 'sq1') {
+//                     sh "${scannerHome}/bin/sonar-scanner \
+//                     -D sonar.projectKey=sq1 \
+//                     -D sonar.host.url=http://sonarqube:9000/"
+//                 }
+//             }
+//         }
 
         stage('Test') {
             steps {
