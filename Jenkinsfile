@@ -13,12 +13,20 @@ pipeline {
             }
         }
 
+
         stage('Test') {
             steps {
                 script {
-                    docker.image('composer:lts').inside {
-                        sh 'apt-get update && apt-get install php-mysqli'
-                        sh 'cd src && composer install && cd .. && vendor/bin/phpunit src/.'
+                    // Define the Docker image name
+                    def imageName = "mitvb23ows-starter-code-php:latest"
+
+                    // Build the Docker image
+                    docker.build(imageName, '-f src/Dockerfile')
+
+                    // Run the Docker container
+                    docker.image(imageName).inside {
+                        // Commands to run inside the container
+                        sh 'vendor/bin/phpunit src/.'
                     }
                 }
             }
