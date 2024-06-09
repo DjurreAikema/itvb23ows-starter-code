@@ -9,6 +9,7 @@ session_start();
 try {
     $db = $mysqli->connect();
 } catch (Exception $e) {
+    echo $e->getMessage();
 }
 $stmt = $db->prepare('insert into moves (game_id, type, move_from, move_to, previous_id, state) values (?, "pass", null, null, ?, ?)');
 $state = $mysqli->getState();
