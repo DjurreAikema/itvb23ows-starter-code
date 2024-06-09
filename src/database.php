@@ -7,11 +7,13 @@ require_once __DIR__ . '/vendor/autoload.php';
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-function get_state() {
+function getState(): string
+{
     return serialize([$_SESSION['hand'], $_SESSION['board'], $_SESSION['player']]);
 }
 
-function set_state($state) {
+function setState($state): void
+{
     list($a, $b, $c) = unserialize($state);
     $_SESSION['hand'] = $a;
     $_SESSION['board'] = $b;
@@ -25,5 +27,3 @@ if ($mysqli->connect_error) {
 }
 
 return $mysqli;
-
-?>
