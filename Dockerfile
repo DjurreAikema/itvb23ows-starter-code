@@ -1,7 +1,7 @@
-FROM jenkins/jenkins:lts
+FROM jenkins/jenkins:lts-jdk17
 
-USER root
+ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 
-RUN apt-get update && apt-get install -y docker.io
+COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 
-USER jenkins
+RUN  jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt
