@@ -23,7 +23,6 @@ pipeline {
             steps {
                 echo 'Testing'
                 dir("src") {
-                    sh 'composer update'
                     sh 'php vendor/bin/phpunit tests'
                 }
             }
