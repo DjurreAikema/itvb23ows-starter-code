@@ -180,7 +180,7 @@ if (!count($to)) {
     <input type="submit" value="Restart">
 </form>
 <strong><?php if (isset($_SESSION['error'])) {
-        echo($_SESSION['error']);
+        echo $_SESSION['error'];
     }
     unset($_SESSION['error']); ?></strong>
 <ol>
