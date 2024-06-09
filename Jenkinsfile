@@ -29,7 +29,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing'
-                sh 'php /var/www/html/vendor/bin/phpunit /var/www/html/tests --configuration /var/www/html/tests/phpunit.xml'
+                sh 'php /var/www/html/vendor/bin/phpunit /var/www/html/Tests --configuration /var/www/html/Tests/phpunit.xml'
             }
         }
 
