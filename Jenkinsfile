@@ -24,6 +24,7 @@ pipeline {
                 echo 'Testing'
                 dir("src") {
                     sh 'php vendor/bin/phpunit tests'
+                    sh 'docker-compose -f docker-compose.yml run --rm php sh -c "cd /var/www/html && composer update && ./vendor/bin/phpunit tests"'
                 }
             }
         }
@@ -38,7 +39,6 @@ pipeline {
     post {
         always {
             echo 'This will always run'
-            sh 'docker compose down'
         }
         success {
             echo 'This will run only if successful'
