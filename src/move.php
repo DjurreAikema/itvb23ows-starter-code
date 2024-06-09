@@ -5,11 +5,11 @@ require_once __DIR__ . '/vendor/autoload.php';
 session_start();
 
 use Core\Util;
-use Core\Database;
+use Models\Database;
 use Helpers\SessionHelper;
 
 $util = new Util();
-$mysqli = new Database();
+$db = Database::getInstance()->getConnection();
 $sessionHelper = new SessionHelper();
 
 $from = $_POST['from'];
@@ -72,11 +72,6 @@ if (!isset($board[$from])) {
             $board[$to] = [$tile];
         }
         $_SESSION['player'] = 1 - $_SESSION['player'];
-        try {
-            $db = $mysqli->connect();
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
         $stmt = $db->prepare('insert into moves (game_id, type, move_from, move_to, previous_id, state) values (?, "move", ?, ?, ?, ?)');
         $state = $sessionHelper->getState();
         $stmt->bind_param('issis', $_SESSION['game_id'], $from, $to, $_SESSION['last_move'], $state);

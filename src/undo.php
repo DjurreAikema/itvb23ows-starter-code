@@ -2,19 +2,14 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use Core\Database;
+use Models\Database;
 use Helpers\SessionHelper;
 
-$mysqli = new Database();
+$db = Database::getInstance()->getConnection();
 $sessionHelper = new SessionHelper();
 
 session_start();
 
-try {
-    $db = $mysqli->connect();
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
 $stmt = $db->prepare('SELECT * FROM moves WHERE id = ' . $_SESSION['last_move']);
 $stmt->execute();
 $result = $stmt->get_result()->fetch_array();

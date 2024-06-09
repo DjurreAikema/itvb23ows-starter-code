@@ -3,11 +3,11 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Core\Util;
-use Core\Database;
+use Models\Database;
 use Helpers\SessionHelper;
 
 $util = new Util();
-$mysqli = new Database();
+$db = Database::getInstance()->getConnection();
 $sessionHelper = new SessionHelper();
 
 session_start();
@@ -33,11 +33,6 @@ if (!$hand[$piece]) {
     $_SESSION['board'][$to] = [[$_SESSION['player'], $piece]];
     $_SESSION['hand'][$player][$piece]--;
     $_SESSION['player'] = 1 - $_SESSION['player'];
-    try {
-        $db = $mysqli->connect();
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
     $stmt = $db->prepare('insert into moves (game_id, type, move_from, move_to, previous_id, state) values (?, "play", ?, ?, ?, ?)');
     $state = $sessionHelper->getState();
     $stmt->bind_param('issis', $_SESSION['game_id'], $piece, $to, $_SESSION['last_move'], $state);
