@@ -1,7 +1,10 @@
 <?php
 session_start();
 
-include_once 'util.php';
+use Core\Util;
+use Core\Database;
+
+$mysqli = new Database();
 
 if (!isset($_SESSION['board'])) {
     header('Location: restart.php');
@@ -22,7 +25,7 @@ $to = array_unique($to);
 if (!count($to)) $to[] = '0,0';
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Hive</title>
     <style>
@@ -168,7 +171,11 @@ if (!count($to)) $to[] = '0,0';
     unset($_SESSION['error']); ?></strong>
 <ol>
     <?php
-    $db = include_once 'database.php';
+    try {
+        $db = $mysqli->connect();
+    } catch (Exception $e) {
+        echo 'Caught exception: ', $e->getMessage(), "\n";
+    }
     $stmt = $db->prepare('SELECT * FROM moves WHERE game_id = ' . $_SESSION['game_id']);
     $stmt->execute();
     $result = $stmt->get_result();
