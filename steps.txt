@@ -29,4 +29,8 @@
 - set SonarQube credetials to: admin password123
 - added ows_sonar as a tool to jenkins
 - changed sonarqube server url (in jenkins config) to sonarqube:9000 instead of localhost:9000
--recreated sonar credentials in jenkins config
+- recreated sonar credentials in jenkins config
+
+- check report in SonarQube analysis
+- create low severity branche
+- fix low severity issues
