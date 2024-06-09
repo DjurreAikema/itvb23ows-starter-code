@@ -16,14 +16,16 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building'
-                sh 'docker compose up --build -d'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Testing'
-                sh 'docker compose run --rm web vendor/bin/phpunit tests'
+                dir("src") {
+                    sh 'composer update'
+                    sh 'php vendor/bin/phpunit tests'
+                }
             }
         }
 
