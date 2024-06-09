@@ -16,13 +16,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building'
+                sh 'docker compose up --build -d'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Testing'
-                sh './vendor/bin/phpunit'
+                sh 'docker compose run --rm web vendor/bin/phpunit tests'
             }
         }
 
@@ -36,6 +37,7 @@ pipeline {
     post {
         always {
             echo 'This will always run'
+            sh 'docker compose down'
         }
         success {
             echo 'This will run only if successful'
