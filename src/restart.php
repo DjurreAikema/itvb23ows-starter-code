@@ -13,6 +13,7 @@ $_SESSION['player'] = 0;
 try {
     $db = $mysqli->connect();
 } catch (Exception $e) {
+    echo $e->getMessage();
 }
 $db->prepare('INSERT INTO games VALUES ()')->execute();
 $_SESSION['game_id'] = $db->insert_id;

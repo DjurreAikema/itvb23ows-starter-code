@@ -9,6 +9,7 @@ session_start();
 try {
     $db = $mysqli->connect();
 } catch (Exception $e) {
+    echo $e->getMessage();
 }
 $stmt = $db->prepare('SELECT * FROM moves WHERE id = ' . $_SESSION['last_move']);
 $stmt->execute();
