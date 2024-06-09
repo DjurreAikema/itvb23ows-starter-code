@@ -1,22 +1,37 @@
 pipeline {
-    agent any
+    agent { label '!windows' }
 
     stages {
-        stage('SonarQube') {
+//         stage('SonarQube') {
+//             steps {
+//                 script { scannerHome = tool 'ows_sonar' }
+//                 withSonarQubeEnv(installationName: 'sq1') {
+//                     sh "${scannerHome}/bin/sonar-scanner \
+//                     -D sonar.projectKey=sq1 \
+//                     -D sonar.host.url=http://sonarqube:9000/"
+//                 }
+//             }
+//         }
+
+        stage('Install dependencies') {
+            agent { docker { image 'composer:2.6' } }
             steps {
-                script { scannerHome = tool 'ows_sonar' }
-                withSonarQubeEnv(installationName: 'sq1') {
-                    sh "${scannerHome}/bin/sonar-scanner \
-                    -D sonar.projectKey=sq1 \
-                    -D sonar.host.url=http://sonarqube:9000/"
-                }
+                sh 'composer install --ignore-platform-reqs'
+                stash name: 'vendor', includes: 'vendor/**'
+            }
+        }
+
+        stage('Unit Tests') {
+            agent { docker { image 'php:8.3-cli' } }
+            steps {
+                unstash name: 'vendor'
+                sh 'vendor/bin/phpunit'
             }
         }
 
         stage('Build') {
             steps {
                 echo 'Building'
-                sh 'docker compose up --build -d'
             }
         }
 
