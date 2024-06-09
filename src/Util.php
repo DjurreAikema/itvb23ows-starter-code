@@ -6,7 +6,7 @@ $GLOBALS['OFFSETS'] = [[0, 1], [0, -1], [1, 0], [-1, 0], [-1, 1], [1, -1]];
 
 class Util
 {
-    function isNeighbour($a, $b): bool
+    public function isNeighbour($a, $b): bool
     {
         $a = explode(',', $a);
         $b = explode(',', $b);
@@ -20,7 +20,7 @@ class Util
         return false;
     }
 
-    function hasNeighbour($a, $board): bool
+    public function hasNeighbour($a, $board): bool
     {
         foreach (array_keys($board) as $b) {
             if ($this->isNeighbour($a, $b)) return true;
@@ -28,7 +28,7 @@ class Util
         return false;
     }
 
-    function neighboursAreSameColor($player, $a, $board): bool
+    public function neighboursAreSameColor($player, $a, $board): bool
     {
         foreach ($board as $b => $st) {
             if (!$st) continue;
@@ -38,12 +38,12 @@ class Util
         return true;
     }
 
-    function len($tile): int
+    public function len($tile): int
     {
         return $tile ? count($tile) : 0;
     }
 
-    function slide($board, $from, $to): bool
+    public function slide($board, $from, $to): bool
     {
         if (!$this->hasNeighBour($to, $board)) return false;
         if (!$this->isNeighbour($from, $to)) return false;

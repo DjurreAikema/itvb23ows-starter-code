@@ -12,12 +12,12 @@ $dotenv->load();
 
 class Database
 {
-    function getState(): string
+    public function getState(): string
     {
         return serialize([$_SESSION['hand'], $_SESSION['board'], $_SESSION['player']]);
     }
 
-    function setState($state): void
+    public function setState($state): void
     {
         list($a, $b, $c) = unserialize($state);
         $_SESSION['hand'] = $a;
