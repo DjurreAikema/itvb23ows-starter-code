@@ -17,6 +17,7 @@ pipeline {
             steps {
                 script {
                     docker.image('composer:lts').inside {
+                        sh 'apt-get update && apt-get install php-mysqli'
                         sh 'cd src && composer install && cd .. && vendor/bin/phpunit src/.'
                     }
                 }
