@@ -13,19 +13,23 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                echo 'Building'
-                script {
-                    sh 'docker-compose up --build -d'
-                }
-            }
-        }
+//         stage('Build') {
+//             steps {
+//                 echo 'Building'
+//                 script {
+//                     sh 'docker-compose up --build -d'
+//                 }
+//             }
+//         }
 
         stage('Test') {
             steps {
-                echo 'Testing'
-                sh 'docker-compose run --rm php vendor/bin/phpunit /var/www/html/Tests'
+                script {
+                    docker.image('composer:lts').inside {
+                        sh 'composer install'
+                        sh 'vendor/bin/phpunit src/.'
+                    }
+                }
             }
         }
 
@@ -39,7 +43,6 @@ pipeline {
     post {
         always {
             echo 'This will always run'
-            sh 'docker-compose down'
         }
         success {
             echo 'This will run only if successful'
