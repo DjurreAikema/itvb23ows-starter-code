@@ -1,5 +1,8 @@
 FROM jenkins/jenkins:lts
 
+COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+RUN  jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt
+
 USER root
 
 RUN mkdir -p /var/lib/apt/lists/partial \
@@ -12,6 +15,3 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 USER jenkins
-
-COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
-RUN  jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt

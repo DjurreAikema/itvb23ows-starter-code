@@ -1,10 +1,12 @@
 pipeline {
-    agent { label '!windows' }
+    agent any
 
     stages {
-        stage('Checkout') {
+        stage('Install Dependencies') {
             steps {
-                checkout scm
+                sh 'curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer'
+                sh 'composer install --ignore-platform-reqs'
+                stash name: 'vendor', includes: 'vendor/**'
             }
         }
 
