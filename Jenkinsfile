@@ -9,7 +9,7 @@ pipeline {
                     def imageName = "itvb23ows-starter-code-php:latest"
 
                     // Build the Docker image
-                    docker.build(imageName, 'src/')
+//                     docker.build(imageName, 'src/')
 
                     // Run the Docker container
                     docker.image(imageName).inside {
