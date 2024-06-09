@@ -1,64 +1,37 @@
 pipeline {
-    agent {
-        docker {
-            image 'docker:latest'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
-
-    environment {
-        DOCKER_COMPOSE_VERSION = '1.29.2'
-    }
+    agent any
 
     stages {
-        stage('Setup Docker Compose') {
+        stage('SonarQube') {
             steps {
-                script {
-                    // Check if docker-compose is installed
-                    sh 'docker-compose --version || curl -L "https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose'
+                script { scannerHome = tool 'ows_sonar' }
+                withSonarQubeEnv(installationName: 'sq1') {
+                    sh "${scannerHome}/bin/sonar-scanner \
+                    -D sonar.projectKey=sq1 \
+                    -D sonar.host.url=http://sonarqube:9000/"
                 }
             }
         }
-        stage('Install Dependencies') {
+
+        stage('Build') {
             steps {
+                echo 'Building'
                 sh 'docker-compose run --rm php composer install'
             }
         }
-        stage('Run PHPUnit Tests') {
+
+        stage('Test') {
             steps {
-                sh 'docker-compose run --rm php vendor/bin/phpunit'
+                echo 'Testing'
+                sh 'docker-compose run --rm php vendor/bin/phpunit /var/www/html/Tests'
             }
         }
-//         stage('SonarQube') {
-//             steps {
-//                 script { scannerHome = tool 'ows_sonar' }
-//                 withSonarQubeEnv(installationName: 'sq1') {
-//                     sh "${scannerHome}/bin/sonar-scanner \
-//                     -D sonar.projectKey=sq1 \
-//                     -D sonar.host.url=http://sonarqube:9000/"
-//                 }
-//             }
-//         }
-//
-//         stage('Build') {
-//             steps {
-//                 echo 'Building'
-//                 sh 'docker-compose run --rm php composer install'
-//             }
-//         }
-//
-//         stage('Test') {
-//             steps {
-//                 echo 'Testing'
-//                 sh 'docker-compose run --rm php vendor/bin/phpunit /var/www/html/Tests'
-//             }
-//         }
-//
-//         stage('Deploy') {
-//             steps {
-//                 echo 'Deploying'
-//             }
-//         }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying'
+            }
+        }
     }
 
     post {
